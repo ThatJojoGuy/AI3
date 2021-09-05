@@ -1,0 +1,598 @@
+---
+swagger: "2.0"
+info:
+  description: "Web application for registering and tracking product orders in a company."
+  version: "1.0.0"
+  title: "Nameless Company"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "company.swagger.io"
+basePath: "/v2"
+tags:
+- name: "product"
+  description: "Everything about products"
+  externalDocs:
+    description: "Find out more:"
+    url: "http://swagger.io"
+- name: "order"
+  description: "Access orders"
+- name: "user"
+  description: "User operations"
+  externalDocs:
+    description: "Find out more about our company"
+    url: "http://swagger.io"
+schemes:
+- "https"
+- "http"
+paths:
+  /product:
+    post:
+      tags:
+      - "product"
+      summary: "Add a new product"
+      description: ""
+      operationId: "addProduct"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Product that needs to be added to the company"
+        required: true
+        schema:
+          $ref: "#/definitions/Product"
+      responses:
+        "200":
+          description: "Product added successfully"
+        "401":
+          description: "You must login to get the requested response "
+        "405":
+          description: "Invalid input"
+      security:
+      - empresa_auth:
+        - "write:products"
+        - "read:products"
+      x-swagger-router-controller: "Product"
+  /product/createWithArray:
+    post:
+      tags:
+      - "product"
+      summary: "Creates list of products with given input array"
+      description: ""
+      operationId: "createProdutWithArrayInput"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "List of products"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/Product"
+      responses:
+        "200":
+          description: "The request has succeeded"
+        "401":
+          description: "You must login to get the requested response"
+        "405":
+          description: "Invalid input"
+        default:
+          description: "The request has succeeded"
+      x-swagger-router-controller: "Product"
+  /product/{productId}:
+    get:
+      tags:
+      - "product"
+      summary: "Search for a product by ID"
+      description: "Returns only one product"
+      operationId: "getProductById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "productId"
+        in: "path"
+        description: "ID of product to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "Product found successfully"
+          schema:
+            $ref: "#/definitions/Product"
+        "400":
+          description: "Invalid ID"
+        "401":
+          description: "you must be authenticate to get the requested response."
+        "404":
+          description: "Product not found"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Product"
+  /products/{productId}:
+    put:
+      tags:
+      - "product"
+      summary: "Updates a product with form data"
+      description: ""
+      operationId: "updateProductWithForm"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "productId"
+        in: "path"
+        description: "Product ID that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "formData"
+        description: "Updates the product name"
+        required: false
+        type: "string"
+      - name: "status"
+        in: "formData"
+        description: "Updates product status"
+        required: false
+        type: "string"
+      responses:
+        "200":
+          description: "Product updated successfully"
+        "401":
+          description: "you must be authenticate to get the requested response"
+        "404":
+          description: "Product not found"
+        "405":
+          description: "Invalid input"
+      security:
+      - empresa_auth:
+        - "write:products"
+        - "read:products"
+      x-swagger-router-controller: "Product"
+    delete:
+      tags:
+      - "product"
+      summary: "Delete a product"
+      description: ""
+      operationId: "deleteProduct"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "productId"
+        in: "path"
+        description: "Product id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "Product successfully deleted"
+        "400":
+          description: "Invalid provided ID"
+        "401":
+          description: "you must be authenticate to get the requested response."
+        "404":
+          description: "Product not found"
+      security:
+      - empresa_auth:
+        - "write:products"
+        - "read:products"
+      x-swagger-router-controller: "Product"
+  /order:
+    post:
+      tags:
+      - "order"
+      summary: "Place an order for a product"
+      description: ""
+      operationId: "placeOrder"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Order placed for purchasing the product"
+        required: true
+        schema:
+          $ref: "#/definitions/Order"
+      responses:
+        "200":
+          description: "Order successfully placed"
+          schema:
+            $ref: "#/definitions/Order"
+        "400":
+          description: "Invalid Order"
+        "401":
+          description: "you must be authenticate to get the requested response"
+        "404":
+          description: "Order not found"
+      x-swagger-router-controller: "Order"
+  /orders/{orderID}:
+    put:
+      tags:
+      - "order"
+      summary: "Update order"
+      description: "This can only be done by the logged in user."
+      operationId: "updateOrder"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "orderID"
+        in: "path"
+        description: "The id that needs to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Update order object"
+        required: true
+        schema:
+          $ref: "#/definitions/Order"
+      responses:
+        "200":
+          description: "update order was successful"
+        "400":
+          description: "Invalid Order"
+        "401":
+          description: "you must be authenticate to get the requested response"
+        "404":
+          description: "Order not found"
+      x-swagger-router-controller: "Order"
+  /order/{orderId}:
+    get:
+      tags:
+      - "order"
+      summary: "Find order by id"
+      description: "For valid response try integer IDs with value >= 1 and <= 10.\
+        \ Other values will generated exceptions"
+      operationId: "getOrderById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "orderId"
+        in: "path"
+        description: "ID of order that needs to be fetched"
+        required: true
+        type: "integer"
+        maximum: 10
+        minimum: 1
+        format: "int64"
+      responses:
+        "200":
+          description: "Order found successfully"
+          schema:
+            $ref: "#/definitions/Order"
+        "400":
+          description: "Invalid ID supplied"
+        "401":
+          description: "you must be authenticate to get the requested response"
+        "404":
+          description: "Order not found"
+      x-swagger-router-controller: "Order"
+    delete:
+      tags:
+      - "order"
+      summary: "Deletes order by ID"
+      description: "For valid response try integer IDs with positive integer value.\
+        \ Negative or non-integer values will generate API errors"
+      operationId: "deleteOrder"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "orderId"
+        in: "path"
+        description: "ID of the order that needs to be deleted"
+        required: true
+        type: "integer"
+        minimum: 1
+        format: "int64"
+      responses:
+        "200":
+          description: "Order successfully deleted"
+        "400":
+          description: "Invalid ID supplied"
+        "401":
+          description: "you must be authenticate to get the requested response"
+        "404":
+          description: "Order not found"
+      x-swagger-router-controller: "Order"
+  /user:
+    post:
+      tags:
+      - "user"
+      summary: "Create user"
+      description: "This can only be done by the logged in user."
+      operationId: "createUser"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Created user object"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        "201":
+          description: "Created used"
+        "400":
+          description: "Invalid username/password supplied"
+        "406":
+          description: "Not Acceptable"
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "User"
+  /user/createWithArray:
+    post:
+      tags:
+      - "user"
+      summary: "Creates list of users with given input array"
+      description: ""
+      operationId: "createUsersWithArrayInput"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "List of user object"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/User"
+      responses:
+        "201":
+          description: "create list successful"
+        "406":
+          description: "Not Acceptable"
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "User"
+  /user/login:
+    post:
+      tags:
+      - "user"
+      summary: "Logs user into the system"
+      description: ""
+      operationId: "loginUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "query"
+        description: "The user name for login"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "The password for login in clear text"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Login successful"
+        "400":
+          description: "Invalid username/password supplied"
+        "404":
+          description: "Not found username"
+        "406":
+          description: "Password not acceptable"
+          headers:
+            X-Rate-Limit:
+              type: "integer"
+              format: "int32"
+              description: "calls per hour allowed by the user"
+            X-Expires-After:
+              type: "string"
+              format: "date-time"
+              description: "date in UTC when token expires"
+          schema:
+            type: "string"
+      x-swagger-router-controller: "User"
+  /user/logout:
+    get:
+      tags:
+      - "user"
+      summary: "Logs out current logged in user session"
+      description: ""
+      operationId: "logoutUser"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "Successful logout"
+        "401":
+          description: "Unauthorized"
+      x-swagger-router-controller: "User"
+  /user/{userId}:
+    put:
+      tags:
+      - "user"
+      summary: "Updated user"
+      description: "This can only be done by the logged in user."
+      operationId: "updateUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "ID that need to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated user object"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        "200":
+          description: "User updated successfully"
+        "400":
+          description: "Invalid user supplied"
+        "404":
+          description: "User not found"
+      x-swagger-router-controller: "User"
+    delete:
+      tags:
+      - "user"
+      summary: "Delete user"
+      description: "This can only be done by the logged in user."
+      operationId: "deleteUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "The ID that needs to be deleted"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "User successfully deleted"
+        "400":
+          description: "Invalid username supplied"
+        "401":
+          description: "you must be authenticate to get the requested response"
+        "404":
+          description: "User not found"
+      x-swagger-router-controller: "User"
+securityDefinitions:
+  empresa_auth:
+    type: "oauth2"
+    authorizationUrl: "http://company.swagger.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:products: "modify products in your account"
+      read:products: "read your products"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  Order:
+    type: "object"
+    properties:
+      orderId:
+        type: "integer"
+        format: "int64"
+      productId:
+        type: "integer"
+        format: "int64"
+      userId:
+        type: "integer"
+        format: "int64"
+      quantity:
+        type: "integer"
+        format: "int32"
+      shipDate:
+        type: "string"
+        format: "date-time"
+      status:
+        type: "string"
+        description: "Order Status"
+        enum:
+        - "placed"
+        - "approved"
+        - "delivered"
+      complete:
+        type: "boolean"
+        default: false
+    example:
+      quantity: 5
+      productId: 6
+      orderId: 0
+      shipDate: "2000-01-23T04:56:07.000+00:00"
+      complete: false
+      userId: 1
+      status: "placed"
+  User:
+    type: "object"
+    properties:
+      userId:
+        type: "integer"
+        format: "int64"
+      username:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      phone:
+        type: "string"
+      userStatus:
+        type: "integer"
+        format: "int32"
+        description: "User Status"
+    xml:
+      name: "utilizador"
+    example:
+      firstName: "firstName"
+      lastName: "lastName"
+      password: "password"
+      userStatus: 6
+      phone: "phone"
+      userId: 0
+      email: "email"
+      username: "username"
+  Product:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      productId:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+        example: "doggie"
+      categoryName:
+        type: "string"
+        example: "medium size"
+      categoryId:
+        type: "integer"
+        format: "int64"
+      status:
+        type: "string"
+        description: "product status in the store"
+        enum:
+        - "available"
+        - "pending"
+        - "sold"
+    example:
+      productId: 0
+      name: "doggie"
+      categoryName: "medium size"
+      categoryId: 6
+      status: "available"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
