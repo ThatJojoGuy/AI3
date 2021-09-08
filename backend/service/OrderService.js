@@ -15,7 +15,7 @@ mongoose.connect("mongodb://localhost:27017/AI3_V2", {
 const db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function() {
-    console.log("Conectamos à BD!")
+    console.log("Conectámos à BD!")
 }); 
 
 //Schema do Utilizador
