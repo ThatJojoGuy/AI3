@@ -5,10 +5,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Cookies from 'universal-cookie';
 
-const AccessToken = '';
+
+const accessToken = '';
 const cookies = new Cookies();
 cookies.set('token', accessToken);
 console.log(cookies.get('token'));
+
 
 function RegisterOrder() {
 
@@ -16,8 +18,8 @@ function RegisterOrder() {
     const [userId, setuserId] = useState('');
     const [quantity, setquantity] = useState('');
     const [shipDate, setshipDate] = useState('');
-    const [status, setStatus] = useState('');
-    const [complete, setComplete] = useState('');
+    const [status, setstatus] = useState('');
+    const [complete, setcomplete] = useState('');
 
     const submitlastName = () => {
         Axios({
@@ -25,7 +27,7 @@ function RegisterOrder() {
                 "x-access-token": `Bearer ${accessToken}`
             },
             method: 'post',
-            url: '',
+            url: 'http://localhost:8080/v2/order',
             data: {
                 "productId": parseInt(productId),
                 "userId": parseInt(userId),

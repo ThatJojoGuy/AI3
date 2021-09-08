@@ -18,7 +18,7 @@ function RegisterUser() {
     const submitlastName = () => {
       Axios({
         method:'post',
-        url:'',
+        url:'http://localhost:8080/v2/user',
         data:{
           "firstName": firstName,
           "lastName": lastName,

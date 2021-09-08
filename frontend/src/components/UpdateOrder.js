@@ -21,7 +21,7 @@ function UpdateOrder() {
          "x-access-token": `Bearer ${accessToken}`
         },
         method:'put',
-        url:''+orderId,
+        url:'http://localhost:8080/v2/orders'+orderId,
         data:{
           status: status}
       }).then(()=>{

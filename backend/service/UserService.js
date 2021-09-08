@@ -12,10 +12,11 @@ var mongoose = require('mongoose'),
 //conectar a base de dados
 const { Int32 } = require('mongodb');
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost:27017/AI", {
+mongoose.createConnection("mongodb://localhost:27017/AI", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+
 
 // we're connected!
 const db = mongoose.connection;
@@ -23,6 +24,7 @@ const db = mongoose.connection;
   db.once('open', function() {
     console.log("Conectámos à BD!")
 }); 
+
 
 //Schema do Utilizador
 const UserSchema = new Schema({

@@ -23,7 +23,7 @@ function RegisterProduct() {
                 "x-access-token": `Bearer ${accessToken}`
             },
             method: 'post',
-            url: '',
+            url: 'http://localhost:8080/v2/product',
             data: {
                 "name": name,
                 "categoryName": categoryName,

@@ -6,10 +6,11 @@ var mongoose = require('mongoose'),
 //conectar a base de dados
 const { Int32 } = require('mongodb');
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost:27017/AI3_V2", {
+mongoose.createConnection("mongodb://localhost:27017/AI3_V2", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+
 
 // we're connected!
 const db = mongoose.connection;

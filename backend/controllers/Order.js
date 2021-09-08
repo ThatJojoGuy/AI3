@@ -32,6 +32,7 @@ module.exports.deleteOrder = function deleteOrder (req, res, next) {
 
 module.exports.getOrderById = function getOrderById (req, res, next) {
   var orderId = req.swagger.params['orderId'].value;
+  /*
   var token = req.headers['x-access-token'];
   console.log("Token",token);
   if (!token) utils.writeJson(res, "No token provided.", 400);
@@ -40,6 +41,7 @@ module.exports.getOrderById = function getOrderById (req, res, next) {
   if (err)
    utils.writeJson(res, "You must be authenticate to get the requested response", 401);
   else console.log("Token validado com sucesso");
+  */
   Order.getOrderById(orderId)
     .then(function (response) {
       utils.writeJson(res, response, 200);
@@ -52,7 +54,7 @@ module.exports.getOrderById = function getOrderById (req, res, next) {
         utils.writeJson(res, response, 400);
       }
     });
-  });
+//  });
 };
 
 module.exports.placeOrder = function placeOrder (req, res, next) {
