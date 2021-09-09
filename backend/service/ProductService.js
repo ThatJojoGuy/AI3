@@ -1,34 +1,31 @@
 'use strict';
-
 var mongoose = require('mongoose'),
-  Schema = mongoose.Schema;
+ Schema = mongoose.Schema;
 
-//ligacao à bd
+ //ligação a bd
 mongoose.Promise = global.Promise;
-mongoose.createConnection("mongodb://localhost:27017/AI3_V2", {
+mongoose.connect("mongodb://localhost:27017/AI3_V2", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 
-
-//we're connected!
+// we're connected!
 const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-  console.log("Conectámos à BD!")
-});
-
+  db.on('error', console.error.bind(console, 'connection error:'));
+  db.once('open', function() {
+    console.log("Conectamos à BD!")
+}); 
 
 //schema dos produtos
 const ProductSchema = new Schema({
-  'productId':{
-    type : Number
+  'productId': {
+    type: Number
   },
   'name' :{
     type: String,
-    required:true
+    required: true
   },
-  'categoryName':{
+  'categoryName': {
     type: String
   },
   'categoryId':{
@@ -50,7 +47,7 @@ ProductSchema.plugin(AutoIncrement, {inc_field: 'productId'});
  * body Product Product that needs to be added to the company
  * no response value expected for this operation
  **/
-exports.addProduct = function (body) {
+exports.addProduct = function(body) {
   return new Promise(function(resolve, reject) {
     const PRod_ = mongoose.model('produto', ProductSchema);
     const NewProduct = new PRod_(body);
@@ -76,8 +73,8 @@ exports.addProduct = function (body) {
  * body List List of products
  * no response value expected for this operation
  **/
-exports.createProdutWithArrayInput = function (body) {
-  return new Promise(function (resolve, reject) {
+exports.createProdutWithArrayInput = function(body) {
+  return new Promise(function(resolve, reject) {
     resolve();
   });
 }
@@ -91,7 +88,7 @@ exports.createProdutWithArrayInput = function (body) {
  * api_key String  (optional)
  * no response value expected for this operation
  **/
-exports.deleteProduct = function (productId, api_key) {
+exports.deleteProduct = function(productId,api_key) {
   return new Promise(function(resolve, reject) {
     if(productId == "")
     {
@@ -120,7 +117,7 @@ exports.deleteProduct = function (productId, api_key) {
  * productId Long ID of product to return
  * returns Product
  **/
-exports.getProductById = function (productId) {
+exports.getProductById = function(productId) {
   return new Promise(function(resolve, reject) {
     const PRod_ = mongoose.model('produtos', ProductSchema);
     PRod_.find({productId : productId}, function (err, products, productId) { 
@@ -143,27 +140,27 @@ exports.getProductById = function (productId) {
  * status String Updates product status (optional)
  * no response value expected for this operation
  **/
-exports.updateProductWithForm = function (productId, name, status) {
+exports.updateProductWithForm = function(productId,name,status) {
   return new Promise(function(resolve, reject) {
-    if(productId == "")
-     {
-       console.log(productId, "1");
-       reject(400);
-       console.log("campo não preenchido");
-     }else{  
-     const PRod_ = mongoose.model('produtos', ProductSchema);
-     PRod_.findOneAndUpdate({ 1 : productId}, name, status, function (err, productId, name, status) {
-       if(productId == null){
-         console.log("userId not found");
-         console.log(err);
-         reject(404)
-       }else{
-         console.log("atualizou");
-         resolve(200)
-       }
-      })   
-     } 
-      mongoose.set('useFindAndModify', false);
-   });
+   if(productId == "")
+    {
+      console.log(productId, "1");
+      reject(400);
+      console.log("campo não preenchido");
+    }else{  
+    const PRod_ = mongoose.model('produtos', ProductSchema);
+    PRod_.findOneAndUpdate({ 1 : productId}, name, status, function (err, productId, name, status) {
+      if(productId == null){
+        console.log("userId not found");
+        console.log(err);
+        reject(404)
+      }else{
+        console.log("atualizou");
+        resolve(200)
+      }
+     })   
+    } 
+     mongoose.set('useFindAndModify', false);
+  });
 }
 

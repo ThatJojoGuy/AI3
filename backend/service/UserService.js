@@ -12,19 +12,17 @@ var mongoose = require('mongoose'),
 //conectar a base de dados
 const { Int32 } = require('mongodb');
 mongoose.Promise = global.Promise;
-mongoose.createConnection("mongodb://localhost:27017/AI", {
+mongoose.connect("mongodb://localhost:27017/AI3_V2", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
-
 
 // we're connected!
 const db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function() {
-    console.log("Conectámos à BD!")
+    console.log("Conectamos à BD!")
 }); 
-
 
 //Schema do Utilizador
 const UserSchema = new Schema({
@@ -139,7 +137,6 @@ exports.deleteUser = function(userId) {
   });
 }
 
-
 /**
  * Logs user into the system
  * 
@@ -194,7 +191,6 @@ exports.loginUser = function(username,password) {
  **/
 exports.logoutUser = function() {
   return new Promise(function(resolve, reject) {
-    resolve();
   });
 }
 

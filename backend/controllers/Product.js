@@ -98,5 +98,11 @@ module.exports.updateProductWithForm = function updateProductWithForm (req, res,
     })
     .catch(function (response) {
       utils.writeJson(res, "Product not found", response, 404);
+       /*if(response == 404){
+        utils.writeJson(res, "Product not found", response);
+      }
+      else{
+        utils.writeJson(res, "Invalid product supplied", response, 400);
+      } */
     });
 };

@@ -6,17 +6,16 @@ var mongoose = require('mongoose'),
 //conectar a base de dados
 const { Int32 } = require('mongodb');
 mongoose.Promise = global.Promise;
-mongoose.createConnection("mongodb://localhost:27017/AI3_V2", {
+mongoose.connect("mongodb://localhost:27017/AI3_V2", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
-
 
 // we're connected!
 const db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function() {
-    console.log("Conectámos à BD!")
+    console.log("Conectamos à BD!")
 }); 
 
 //Schema do Utilizador
@@ -33,6 +32,7 @@ const OrderSchema = new Schema({
 //Incrementar o id
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 OrderSchema.plugin(AutoIncrement, {inc_field: 'orderId'});
+
 
 /**
  * Deletes order by ID
@@ -95,19 +95,19 @@ exports.getOrderById = function(orderId) {
  **/
 exports.placeOrder = function(body) {
   return new Promise(function(resolve, reject) {
-    const ORder_ = mongoose.model('encomenda', OrderSchema);
-    const NewOrder = new ORder_(body);
-    NewOrder.save(function (err, result) {
-      if (err){
-        reject(406);
-      }else{
-        console.log(result);
-        resolve(201); 
-      }
-      //Salvar
-      const savedOrder =  NewOrder.save();
-    });    
-});
+      const ORder_ = mongoose.model('encomenda', OrderSchema);
+      const NewOrder = new ORder_(body);
+      NewOrder.save(function (err, result) {
+        if (err){
+          reject(406);
+        }else{
+          console.log(result);
+          resolve(201); 
+        }
+        //Salvar
+        const savedOrder =  NewOrder.save();
+      });    
+  });
 }
 
 
@@ -142,4 +142,3 @@ exports.updateOrder = function(orderID,body) {
      mongoose.set('useFindAndModify', false);
   });
 }
-
