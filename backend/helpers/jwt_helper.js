@@ -1,12 +1,13 @@
 const JWT = require('jsonwebtoken')
 const createError = require('http-errors')
+const { jwtSecret } = require('./config')
 
 module.exports = {
     signAccessToken: (userId) =>{
         return new Promise((resolve,reject) => {
             const payload = {
             }
-            const secret= "SECREAT KEY"
+            const secret = jwtSecret
             const options = {
                 espiresIn: "1h",
                 issuer: "pickurpage.com",
@@ -29,7 +30,7 @@ module.exports = {
         const bearerToken = authHeader.split(' ')
         const token = bearerToken[1]
         console.log(token);
-        JWT.verify(token, secret, (err,payload) => {
+        JWT.verify(token, secret=jwtSecret, (err,payload) => {
             if(err){
                 const message =
                     err.name === 'JsonWebTokenError' ? 'Unauthorized' : err.message

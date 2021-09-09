@@ -94,7 +94,7 @@ exports.deleteProduct = function(productId,api_key) {
     {
       reject(400);
     }else{
-    const PRod_ = mongoose.model('produtos', ProductSchema);
+    const PRod_ = mongoose.model('Product', ProductSchema);
       console.log(productId)
       PRod_.findOneAndDelete({productId: productId}, function(err, productId){
         if(productId == null){
@@ -119,7 +119,7 @@ exports.deleteProduct = function(productId,api_key) {
  **/
 exports.getProductById = function(productId) {
   return new Promise(function(resolve, reject) {
-    const PRod_ = mongoose.model('produtos', ProductSchema);
+    const PRod_ = mongoose.model('Product', ProductSchema);
     PRod_.find({productId : productId}, function (err, products, productId) { 
      if(productId !== null){
       resolve(products);
@@ -148,7 +148,7 @@ exports.updateProductWithForm = function(productId,name,status) {
       reject(400);
       console.log("campo não preenchido");
     }else{  
-    const PRod_ = mongoose.model('produtos', ProductSchema);
+    const PRod_ = mongoose.model('Product', ProductSchema);
     PRod_.findOneAndUpdate({ 1 : productId}, name, status, function (err, productId, name, status) {
       if(productId == null){
         console.log("userId not found");
