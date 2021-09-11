@@ -37,7 +37,7 @@ function UpdateOrder() {
   return (
     <div className="App">
       <ReactBootStrap.Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <ReactBootStrap.Navbar.Brand href="#home">Company Name</ReactBootStrap.Navbar.Brand>
+        <ReactBootStrap.Navbar.Brand href="#home">Nameless Company</ReactBootStrap.Navbar.Brand>
         <ReactBootStrap.Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <ReactBootStrap.Navbar.Collapse id="responsive-navbar-nav">
           <ReactBootStrap.Nav className="mr-auto">
@@ -57,11 +57,13 @@ function UpdateOrder() {
       <h1 className="tituloRegisterUser">Update Status Order</h1>
       <div className="form">
         <div>
+        <label for="orderId" style={{width: "9rem"}}>Order Id</label>
           <input type="number" name="orderId" placeholder="Order Id" onChange={(e) => {
             setorderId(e.target.value)
           }} />
         </div>
         <div>
+        <label for="status" style={{width: "9rem"}}>Status</label>
           <input type="text" name="status" placeholder="Status" onChange={(e) => {
             setstatus(e.target.value)
           }} />

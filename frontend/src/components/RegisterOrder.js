@@ -46,7 +46,7 @@ function RegisterOrder() {
       return (
         <div className="App">
 <ReactBootStrap.Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-  <ReactBootStrap.Navbar.Brand href="#home">Company Name</ReactBootStrap.Navbar.Brand>
+  <ReactBootStrap.Navbar.Brand href="#home">Nameless Company</ReactBootStrap.Navbar.Brand>
   <ReactBootStrap.Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <ReactBootStrap.Navbar.Collapse id="responsive-navbar-nav">
     <ReactBootStrap.Nav className="mr-auto">
@@ -65,32 +65,38 @@ function RegisterOrder() {
             <h1 className="tituloRegisterUser">Register Order</h1>
             <div className="form">
             <div>
-            <input type="number" name="productId" placeholder="Product Id" onChange={(e)=>{
+              <label for="productId" style={{width: "9rem"}}>Id Product</label>
+            <input id="IdProduto" type="number" name="productId" placeholder="0" onChange={(e)=>{
               setproductId(e.target.value)
             }}/> 
             </div>
             <div>
-            <input type="number" name="userId" placeholder="User Id" onChange={(e)=>{
+            <label for="userId" style={{width: "9rem"}}>Id User</label>
+            <input type="number" name="userId" placeholder="0" onChange={(e)=>{
               setuserId(e.target.value)
             }}/>
             </div>
             <div>
-            <input type="number" name="quantity" placeholder="Quantity" onChange={(e)=>{
+            <label for="quantity" style={{width: "9rem"}}>Quantity</label>
+            <input type="number" name="quantity" placeholder="0" onChange={(e)=>{
               setquantity(e.target.value)
             }}/>
             </div>
             <div>
-            <input type="text" name="shipDate" placeholder="Ship Date" onChange={(e)=>{
+            <label for="shipDate" style={{width: "9rem"}}>Ship Date</label>
+            <input type="text" name="shipDate" placeholder="2000-01-23T04:56:07.000+00:00" onChange={(e)=>{
               setshipDate(e.target.value)
             }}/>
             </div>
             <div>
-            <input type="text" name="status" placeholder="Status" onChange={(e)=>{
+            <label for="status" style={{width: "9rem"}}>Order Status</label>
+            <input type="text" name="status" placeholder="placed/approved/delivered" onChange={(e)=>{
               setstatus(e.target.value)
             }}/>
             </div>
             <div>
-            <input type="text" name="complete" placeholder="Complete" onChange={(e)=>{
+            <label for="Complete" style={{width: "9rem"}}>Complete</label>
+            <input type="text" name="complete" placeholder="true/false" onChange={(e)=>{
               setcomplete(e.target.value)
             }}/>
             </div>

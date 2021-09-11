@@ -43,7 +43,7 @@ function RegisterProduct() {
       return (
         <div className="App">
 <ReactBootStrap.Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-  <ReactBootStrap.Navbar.Brand href="#home">Company Name</ReactBootStrap.Navbar.Brand>
+  <ReactBootStrap.Navbar.Brand href="#home">Nameless Company</ReactBootStrap.Navbar.Brand>
   <ReactBootStrap.Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <ReactBootStrap.Navbar.Collapse id="responsive-navbar-nav">
     <ReactBootStrap.Nav className="mr-auto">
@@ -62,22 +62,26 @@ function RegisterProduct() {
             <h1 className="tituloRegisterUser">Register Product</h1>
             <div className="form">
             <div>
+            <label for="name" style={{width: "9rem"}}>Name</label>
             <input type="text" name="name" placeholder="Name" onChange={(e)=>{
               setname(e.target.value)
             }}/> 
             </div>
             <div>
+            <label for="categoryName" style={{width: "9rem"}}>Category Name</label>
             <input type="text" name="categoryName " placeholder="Category Name " onChange={(e)=>{
               setcategoryName (e.target.value)
             }}/>
             </div>
             <div>
-            <input type="text" name="categoryId " placeholder="Category Id" onChange={(e)=>{
+            <label for="categoryId" style={{width: "9rem"}}>Category Id</label>
+            <input type="text" name="categoryId " placeholder="0" onChange={(e)=>{
               setcategoryId (e.target.value)
             }}/>
             </div>
             <div>
-            <input type="text" name="status " placeholder="Status" onChange={(e)=>{
+            <label for="status" style={{width: "9rem"}}>Status</label>
+            <input type="text" name="status " placeholder="available/pending/sold" onChange={(e)=>{
               setstatus (e.target.value)
             }}/>
             </div>

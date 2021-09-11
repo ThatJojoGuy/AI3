@@ -9,7 +9,7 @@ class Navbar extends Component {
         return (
             <div className="App">
                 <ReactBootStrap.Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                    <ReactBootStrap.Navbar.Brand href="#home">Company Name</ReactBootStrap.Navbar.Brand>
+                    <ReactBootStrap.Navbar.Brand href="#home">Nameless Company</ReactBootStrap.Navbar.Brand>
                     <ReactBootStrap.Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <ReactBootStrap.Navbar.Collapse id="responsive-navbar-nav">
                         <ReactBootStrap.Nav className="mr-auto">
@@ -22,7 +22,6 @@ class Navbar extends Component {
                         </ReactBootStrap.Nav>
                     </ReactBootStrap.Navbar.Collapse>
                 </ReactBootStrap.Navbar>
-                <img src="/images/company.jpg" alt="" />
             </div>
         )
     }

@@ -34,7 +34,7 @@ function RegisterUser() {
       return (
         <div className="App">
 <ReactBootStrap.Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-  <ReactBootStrap.Navbar.Brand href="#home">Company Name</ReactBootStrap.Navbar.Brand>
+  <ReactBootStrap.Navbar.Brand href="#home">Nameless Company</ReactBootStrap.Navbar.Brand>
   <ReactBootStrap.Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <ReactBootStrap.Navbar.Collapse id="responsive-navbar-nav">
     <ReactBootStrap.Nav className="mr-auto">
@@ -50,36 +50,43 @@ function RegisterUser() {
             <h1 className="tituloRegisterUser">Register User</h1>
             <div className="form">
             <div>
+            <label for="firstName" style={{width: "9rem"}}>First Name</label>
             <input type="text" name="firstName" placeholder="First Name" onChange={(e)=>{
               setfirstName(e.target.value)
             }}/> 
             </div>
             <div>
+            <label for="lastName" style={{width: "9rem"}}>Last Name</label>
             <input type="text" name="lastName"  placeholder="Last Name" onChange={(e)=>{
               setlastName(e.target.value)
             }}/>
             </div>
             <div>
+            <label for="password" style={{width: "9rem"}}>Password</label>
             <input type="password" name="password"  placeholder="Password" onChange={(e)=>{
               setpassword(e.target.value)
             }}/>
             </div>
             <div>
-            <input type="number" name="userStatus"  placeholder="User Status" onChange={(e)=>{
+            <label for="userStatus" style={{width: "9rem"}}>User Status</label>
+            <input type="number" name="userStatus"  placeholder="0,1,2,3,..." onChange={(e)=>{
               setuserStatus(e.target.value)
             }}/>
             </div>
             <div>
+            <label for="phone" style={{width: "9rem"}}>Phone</label>
             <input type="text" name="phone"  placeholder="Phone" onChange={(e)=>{
               setphone(e.target.value)
             }}/>
             </div>
             <div>
-            <input type="text" name="email"  placeholder="Email" onChange={(e)=>{
+            <label for="email" style={{width: "9rem"}}>Email</label>
+            <input type="text" name="email"  placeholder="example@gmail.com" onChange={(e)=>{
               setemail(e.target.value)
             }}/>
             </div>
             <div>
+            <label for="username" style={{width: "9rem"}}>Username</label>
             <input type="text" name="username"  placeholder="Username" onChange={(e)=>{
               setusername(e.target.value)
             }}/>
