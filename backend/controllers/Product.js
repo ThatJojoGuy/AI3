@@ -1,5 +1,6 @@
 'use strict';
 const {verifyAccessToken} = require ("../helpers/jwt_helper")
+const { jwtSecret } = require("../helpers/config")
 const JWT = require('jsonwebtoken');
 var utils = require('../utils/writer.js');
 var User = require('../service/UserService');
@@ -12,7 +13,7 @@ module.exports.addProduct = function addProduct (req, res, next) {
   var token = req.headers['x-access-token'];
   console.log("Token",token);
   if (!token) utils.writeJson(res, "No token provided.", 400);
-    verifyAccessToken(req, "122212", function(err, decoded) {
+    verifyAccessToken(req, jwtSecret, function(err, decoded) {
     console.log(err);
   if (err)
    utils.writeJson(res, "You must be authenticate to get the requested response", 401);
@@ -44,7 +45,7 @@ module.exports.deleteProduct = function deleteProduct (req, res, next) {
   var token = req.headers['x-access-token'];
   console.log("Token",token);
   if (!token) utils.writeJson(res, "No token provided.", 400);
-    verifyAccessToken(req, "122212", function(err, decoded) {
+    verifyAccessToken(req, jwtSecret, function(err, decoded) {
     console.log(err);
   if (err)
    utils.writeJson(res, "You must be authenticate to get the requested response", 401);
@@ -68,7 +69,7 @@ module.exports.getProductById = function getProductById (req, res, next) {
   var token = req.headers['x-access-token'];
   console.log("Token",token);
   if (!token) utils.writeJson(res, "No token provided.", 400);
-    verifyAccessToken(req, "122212", function(err, decoded) {
+    verifyAccessToken(req, jwtSecret, function(err, decoded) {
     console.log(err);
   if (err)
    utils.writeJson(res, "You must be authenticate to get the requested response", 401);

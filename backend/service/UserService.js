@@ -6,6 +6,7 @@ const app = express();
 const bcrypt = require('bcrypt');
 const jwt_helper = require('../helpers/jwt_helper');
 const {signAccessToken} = require ("../helpers/jwt_helper")
+const { jwtSecret } = require("../helpers/config")
 var mongoose = require('mongoose'),
  Schema = mongoose.Schema;
 
@@ -161,7 +162,7 @@ exports.loginUser = function(username,password) {
             response.json({success: false, message: 'passwords do not match'});
           }if(res){
             // Send JWT
-            const accessToken = signAccessToken("122212");
+            const accessToken = signAccessToken(jwtSecret);
             accessToken.then(function (result) {
              console.log({result})
            })

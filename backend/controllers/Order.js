@@ -1,7 +1,7 @@
 'use strict';
 const {verifyAccessToken} = require ("../helpers/jwt_helper")
+const { jwtSecret } = require("../helpers/config")
 var utils = require('../utils/writer.js');
-
 var utils = require('../utils/writer.js');
 var Order = require('../service/OrderService');
 
@@ -10,7 +10,7 @@ module.exports.deleteOrder = function deleteOrder (req, res, next) {
   var token = req.headers['x-access-token'];
   console.log("Token",token);
   if (!token) utils.writeJson(res, "No token provided.", 400);
-    verifyAccessToken(req, "122212", function(err, decoded) {
+    verifyAccessToken(req, jwtSecret, function(err, decoded) {
   console.log(err);
   if (err)
    utils.writeJson(res, "You must be authenticate to get the requested response", 401);
@@ -35,7 +35,7 @@ module.exports.getOrderById = function getOrderById (req, res, next) {
   var token = req.headers['x-access-token'];
   console.log("Token",token);
   if (!token) utils.writeJson(res, "No token provided.", 400);
-    verifyAccessToken(req, "122212", function(err, decoded) {
+    verifyAccessToken(req, jwtSecret, function(err, decoded) {
   console.log(err);
   if (err)
    utils.writeJson(res, "You must be authenticate to get the requested response", 401);
@@ -60,7 +60,7 @@ module.exports.placeOrder = function placeOrder (req, res, next) {
   var token = req.headers['x-access-token'];
   console.log("Token",token);
   if (!token) utils.writeJson(res, "No token provided.", 400);
-    verifyAccessToken(req, "122212", function(err, decoded) {
+    verifyAccessToken(req, jwtSecret, function(err, decoded) {
   console.log(err);
   if (err)
    utils.writeJson(res, "You must be authenticate to get the requested response", 401);
@@ -86,7 +86,7 @@ module.exports.updateOrder = function updateOrder (req, res, next) {
   var token = req.headers['x-access-token'];
   console.log("Token",token);
   if (!token) utils.writeJson(res, "No token provided.", 400);
-    verifyAccessToken(req, "122212", function(err, decoded) {
+    verifyAccessToken(req, jwtSecret, function(err, decoded) {
   console.log(err);
   if (err)
    utils.writeJson(res, "You must be authenticate to get the requested response", 401);

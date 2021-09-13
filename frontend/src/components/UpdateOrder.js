@@ -58,13 +58,13 @@ function UpdateOrder() {
       <div className="form">
         <div>
         <label for="orderId" style={{width: "9rem"}}>Order Id</label>
-          <input type="number" name="orderId" placeholder="Order Id" onChange={(e) => {
+          <input type="number" name="orderId" placeholder="0" onChange={(e) => {
             setorderId(e.target.value)
           }} />
         </div>
         <div>
         <label for="status" style={{width: "9rem"}}>Status</label>
-          <input type="text" name="status" placeholder="Status" onChange={(e) => {
+          <input type="text" name="status" placeholder="placed/approved/delivered" onChange={(e) => {
             setstatus(e.target.value)
           }} />
         </div>
