@@ -18,7 +18,7 @@ const db = mongoose.connection;
     console.log("Conectamos à BD!")
 }); 
 
-//Schema do Utilizador
+//Schema do pedidos
 const OrderSchema = new Schema({
   'orderId': Number,
   'productId': Number,
